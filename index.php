@@ -45,7 +45,7 @@
      if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        echo '<tr><th scope="row">'. $row["id"].'</th><td>'. $row["nom"].'</td><td>'. $row["note"].'</td><td>'. $row["img"].'</td><td>'. $row["commentaire"].'</td></tr>';      }
+        echo '<tr><th scope="row">'. $row["id"].'</th><td>'. $row["nom"].'</td><td>'. $row["note"].'</td><td><img src='. $row["img"].' height="150"/></td><td>'. $row["commentaire"].'</td></tr>';      }
     } else {
       echo "0 results";
     }
@@ -54,12 +54,7 @@
   </tbody>
 </table>
     
-
-
-
-
-
-
+<a href="ajouter.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">ajouter.php</a>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </body>
 </html>
