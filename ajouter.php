@@ -30,37 +30,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $nom = trojan($_POST["nom"]);
     }
 
-    if(empty($_POST["mdp"])){
-        $imgErreur = "Le mdp es vide";
+    if(empty($_POST["note"])){
+        $noteErreur = "La note es vide";
         $erreur  = true;
     }
     else{
-        $img = trojan($_POST["mdp"]);
+        $img = trojan($_POST["note"]);
     }
 
 
-    if(empty($_POST["email"])){
-        $nomErreur = "Le nom ne peut pas être vide";
+    if(empty($_POST["img"])){
+        $imgErreur = "L'image ne peut pas être vide";
         $erreur  = true;
     }
     else{
-        $commentaire = trojan($_POST["email"]);
+        $img = trojan($_POST["img"]);
     }
 
-    if(empty($_POST["avatar"])){
-        $nomErreur = "Le nom ne peut pas être vide";
+    if(empty($_POST["commentaire"])){
+        $commentaireErreur = "Le commentaire ne peut pas être vide";
         $erreur  = true;
     }
     else{
-        $note = trojan($_POST["avatar"]);
-    }
-
-    if(empty($_POST["sex"])){
-        $nomErreur = "Le nom ne peut pas être vide";
-        $erreur  = true;
-    }
-    else{
-        $sex = trojan($_POST["sex"]);
+        $commentaire = trojan($_POST["commentaire"]);
     }
 
 
@@ -125,21 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                     // Cas #1 On veut afficher le formulaire
                     echo "<h1>On affiche le formulaire </h1>";
                 }
-                echo $nom;
-                echo "</br>";
-                echo $img;
-                echo "</br>";
-                echo "</br>";
-                echo $commentaire;
-                echo "</br>";
-                echo $note;
-                echo "</br>";
-                echo $sex;
-                echo "</br>";
-                echo $naissance;
-                echo "</br>";
-                echo $transport;
-                echo "</br>";
+
 
         function trojan($data){
             $data = trim($data); //Enleve les caractères invisibles
