@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
 </head>
 <body>
     
@@ -35,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $erreur  = true;
     }
     else{
-        $img = trojan($_POST["note"]);
+        $note = trojan($_POST["note"]);
     }
 
 
@@ -55,7 +57,29 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
         $commentaire = trojan($_POST["commentaire"]);
     }
 
+    $servername = "localhost";
+    $username = "root";
+    $password = "Azgt3878";
+    $dbname = "Jeux";
 
+    $conn=mysqli_connect($servername,$username,$password,$dbname);
+
+    //Checkconnection
+    if(!$conn){
+    die("Connectionfailed:".mysqli_connect_error());
+    }
+
+    $sql=" INSERT INTO  steam(nom,note,img,commentaire)
+    VALUES('$nom','$note','$img','$commentaire')";
+
+    if(mysqli_query($conn,$sql)){
+
+    echo"Enregistrementréussi";
+    }else{
+    echo"Error:".$sql."<br>".mysqli_error($conn);
+    }
+    mysqli_close($conn);
+    
 
 }
 ?>
@@ -65,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
     <div class="container">
         <div class="row">
             <div class="col-12">
-                <form method="post" action="index.php">
+                <form method="post" action="ajouter.php">
 
                 
                     <div class="form-group">
@@ -75,18 +99,18 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
                     <div class="form-group">
                         <label for="">Note</label>
-                        <input type="text" name="mdp" class="form.control" placeholder="<?php echo $imgErreur ?>" value="<?php echo $img ?>" >   
+                        <input type="text" name="note" class="form.control" placeholder="<?php echo $imgErreur ?>" value="<?php echo $img ?>" >   
                     </div>
 
 
                     <div class="form-group">
                         <label for="">img</label>
-                        <input type="text" name="email" class="form.control" placeholder="name" value="<?php echo $commentaire ?>" >   
+                        <input type="text" name="img" class="form.control" placeholder="name" value="<?php echo $commentaire ?>" >   
                     </div>
 
                     <div class="form-group">
                         <label for="">commentaire</label>
-                        <input type="text" name="avatar" class="form.control" placeholder="name" value="<?php echo $note ?>" >   
+                        <input type="text" name="commentaire" class="form.control" placeholder="name" value="<?php echo $note ?>" >   
                     </div>
 
 
@@ -99,6 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                     </div>
 
                 </form>
+
+                <a href="index.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">index.php</a>
             </div>
         </div>
     </div>
@@ -112,12 +138,12 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
         <?php
                     //AFFICHER LE RÉSULTAT DE MON FORM
-                
+                /*
                 if ($_SERVER['REQUEST_METHOD'] != "POST" || $erreur == true){
                     // Cas #1 On veut afficher le formulaire
                     echo "<h1>On affiche le formulaire </h1>";
                 }
-
+*/
 
         function trojan($data){
             $data = trim($data); //Enleve les caractères invisibles
@@ -129,7 +155,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
 
     ?>
 
-    
-    
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
 </body>
 </html>
