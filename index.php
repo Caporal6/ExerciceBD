@@ -45,7 +45,8 @@
      if ($result->num_rows > 0) {
       // output data of each row
       while($row = $result->fetch_assoc()) {
-        echo '<tr><th scope="row">'. $row["id"].'</th><td>'. $row["nom"].'</td><td>'. $row["note"].'</td><td><img src='. $row["img"].' height="150"/></td><td>'. $row["commentaire"].'</td></tr>';      }
+        $id = $row["id"];
+        echo '<tr><th scope="row">'. $id.'</th><td>'. $row["nom"].'</td><td>'. $row["note"].'</td><td><img src='. $row["img"].' height="150"/></td><td>'. $row["commentaire"].'</td>  <td><a href="modifier.php?varname='. $id.'" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">modifier.php</a>   </td></tr>';      }
     } else {
       echo "0 results";
     }

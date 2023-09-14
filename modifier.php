@@ -11,12 +11,151 @@
 <body>
     
 
+
+<?php 
+    $var_value = $_GET['varname'];
+    echo $var_value;
+
+?>
+
+<?php
+
+$nom = $note = $img = $commentaire = "";
+$nomErreur = $imgErreur = $noteErreur = $commentaireErreur =  "";
+$erreur = false;
+
+if ($_SERVER['REQUEST_METHOD'] == "POST"){
+    //CAS #2
+    //On vient de recevoir le formulaire
+    echo "<h1>POST == TRUE </h1>";
+    
+    if(empty($_POST["nom"])){
+        $nomErreur = "Le nom ne peut pas être vide";
+        $erreur  = true;
+    }
+    else{
+        $nom = trojan($_POST["nom"]);
+    }
+
+    if(empty($_POST["note"])){
+        $noteErreur = "La note es vide";
+        $erreur  = true;
+    }
+    else{
+        $note = trojan($_POST["note"]);
+    }
+
+
+    if(empty($_POST["img"])){
+        $imgErreur = "L'image ne peut pas être vide";
+        $erreur  = true;
+    }
+    else{
+        $img = trojan($_POST["img"]);
+    }
+
+    if(empty($_POST["commentaire"])){
+        $commentaireErreur = "Le commentaire ne peut pas être vide";
+        $erreur  = true;
+    }
+    else{
+        $commentaire = trojan($_POST["commentaire"]);
+    }
+
+
+
+
+    $servername = "localhost";
+    $username = "root";
+    $password = "Azgt3878";
+    $dbname = "Jeux";
+
+    $conn=mysqli_connect($servername,$username,$password,$dbname);
+
+    //Checkconnection
+    if(!$conn){
+    die("Connectionfailed:".mysqli_connect_error());
+    }
+
+    $sql=" UPDATE steam(nom,note,img,commentaire)
+    SET nom = '$nom', note = '$note', img = '$img', commentaire = '$commentaire' WHERE id='$var_value'";
+
+    if(mysqli_query($conn,$sql)){
+
+    echo"Update Reussi";
+    }else{
+    echo"Error:".$sql."<br>".mysqli_error($conn);
+    }
+    mysqli_close($conn);
     
 
+}
+?>
+
+    <h1>Formulaire</h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form method="post" action="modifier.php">
+
+                
+                    <div class="form-group">
+                        <label for="">Nom</label>
+                        <input type="text" name="nom" class="form.control" placeholder="name" value="<?php echo $nom ?>" >   
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">Note</label>
+                        <input type="text" name="note" class="form.control" placeholder="<?php echo $imgErreur ?>" value="<?php echo $img ?>" >   
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="">img</label>
+                        <input type="text" name="img" class="form.control" placeholder="name" value="<?php echo $commentaire ?>" >   
+                    </div>
+
+                    <div class="form-group">
+                        <label for="">commentaire</label>
+                        <input type="text" name="commentaire" class="form.control" placeholder="name" value="<?php echo $note ?>" >   
+                    </div>
 
 
 
 
+
+
+                    <div class="form-group">
+                        <input type="submit">   
+                    </div>
+
+                </form>
+
+                <a href="index.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">index.php</a>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+        <?php
+
+        function trojan($data){
+            $data = trim($data); //Enleve les caractères invisibles
+            $data = addslashes($data); //Mets des backslashs devant les ' et les  "
+            $data = htmlspecialchars($data); // Remplace les caractères spéciaux par leurs symboles comme ­< devient &lt;
+            
+            return $data;
+        }
+
+    ?>
 
 
 
