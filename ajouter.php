@@ -125,6 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST"){
                 </form>
 
                 <a href="index.php" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">index.php</a>
+
             </div>
         </div>
     </div>
